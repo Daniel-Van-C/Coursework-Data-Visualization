@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bubble Chart</title>
+    <link rel="shortcut icon" href="#">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://d3js.org/d3.v6.js"></script>
+</head>
+<body>
+    <header>
+        <h1>"Which Social Platform Influences Your Shopping The Most?"</h1>
+        <h1>Survey Demographics Bubble Chart</h1>
+    </header>
+
+    <main>
+        <div class="chart-controls">
+            <div class="control-group">
+                <label for="x_axis_select">X-axis:</label>
+                <select id="x_axis_select">
+                    <option value="Average Parent's Salary">Average Parent's Salary</option>
+                    <option value="Average Height">Average Height</option>
+                    <option value="Average GPA">Average GPA</option>
+                    <option value="Average Graduation Year">Average Graduation Year</option>
+                    <option value="Number of Participants">Number of Total Participants</option>
+                    <option value="Percentage of Participants that are Male">Percentage of Participants who are Male</option>
+                    <option value="Percentage of Participants that Attended School">Percentage of Participants who Attended School</option>
+                    <option value="Percentage of Participants that Play Games">Percentage of Participants who Play Games</option>
+                    <option value="Percentage of Participants that Voted in the 2016">Percentage of Participants who Voted in 2016</option>
+                    <option value="Percentage of Participants that are Feminists">Percentage of Participants who are Feminists</option>
+                    <option value="Percentage of Participants that are Single">Percentage of Participants who are Single</option>
+                    <option value="Percentage of Participants that Received a Loan">Percentage of Participants who are in Student Loan Debt</option>
+                    <option value="Percentage of Participants that are Virgins">Percentage of Participants who are Virgins</option>
+                    <option value="Percentage of Participants that are Straight">Percentage of Participants who are Straight</option>
+                    <option value="Percentage of Participants that are in a Fraternity">Percentage of Participants who are in a Fraternity/Sorority</option>
+                    <option value="Percentage of Participants that Spoke English">Percentage of Participants who spoke English Growing Up</option>
+                    <option value="Percentage of Participants that are Employed">Percentage of Participants who are Employed</option>
+                    <option value="Percentage of Participants with Career Paths">Percentage of Participants who are have Decided what to Pursue</option>
+                    <option value="Percentage of Participants that own a PC">Percentage of Participants who own a PC</option>
+                    <option value="Percentage of Participants that are in a Club">Percentage of Participants who are in a Club</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label for="y_axis_select">Y-axis:</label>
+                <select id="y_axis_select">
+                    <option value="Average Height">Average Height</option>
+                    <option value="Average Parent's Salary">Average Parent's Salary</option>
+                    <option value="Average GPA">Average GPA</option>
+                    <option value="Average Graduation Year">Average Graduation Year</option>
+                    <option value="Number of Participants">Number of Total Participants</option>
+                    <option value="Percentage of Participants that are Male">Percentage of Participants who are Male</option>
+                    <option value="Percentage of Participants that Attended School">Percentage of Participants who Attended School</option>
+                    <option value="Percentage of Participants that Play Games">Percentage of Participants who Play Games</option>
+                    <option value="Percentage of Participants that Voted in the 2016">Percentage of Participants who Voted in 2016</option>
+                    <option value="Percentage of Participants that are Feminists">Percentage of Participants who are Feminists</option>
+                    <option value="Percentage of Participants that are Single">Percentage of Participants who are Single</option>
+                    <option value="Percentage of Participants that Received a Loan">Percentage of Participants who are in Student Loan Debt</option>
+                    <option value="Percentage of Participants that are Virgins">Percentage of Participants who are Virgins</option>
+                    <option value="Percentage of Participants that are Straight">Percentage of Participants who are Straight</option>
+                    <option value="Percentage of Participants that are in a Fraternity">Percentage of Participants who are in a Fraternity/Sorority</option>
+                    <option value="Percentage of Participants that Spoke English">Percentage of Participants who spoke English Growing Up</option>
+                    <option value="Percentage of Participants that are Employed">Percentage of Participants who are Employed</option>
+                    <option value="Percentage of Participants with Career Paths">Percentage of Participants who are have Decided what to Pursue</option>
+                    <option value="Percentage of Participants that own a PC">Percentage of Participants who own a PC</option>
+                    <option value="Percentage of Participants that are in a Club">Percentage of Participants who are in a Club</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <input type="checkbox" id="enable_x_truncation" onclick="x_truncation();">
+                <label for="enable_x_truncation">Enable X axis truncation</label>
+            </div>
+            <div class="control-group">
+                <input type="checkbox" id="enable_y_truncation" onclick="y_truncation();">
+                <label for="enable_y_truncation">Enable Y axis truncation</label>
+            </div>
+        </div>
+        
+        <div id="bubble_chart"></div>
+
+        <div id="chart-description">
+            <p>
+                My implementation closely follows my bubble chart design, aiding the answering of Q1, as described in Part 2 of the report. The data processing is carried out using a Python script entitled "process_data.py", which can be found in the submission folder. This script examines each pertinent question, aggregating the number of responses for each social media platform.
+            </p>
+            <p>
+                <br>For instance, when analysing the question "Are you single?" from the survey, the script computes the proportion of respondents who selected yes to being single and identified Facebook as their most influential social media platform. This is achieved by dividing the number of such individuals by the total number of participants who selected Facebook and responded to the "Are you single?" question. The resulting value is then multiplied by 100 to obtain the percentage of respondents who believe that Facebook has the most significant influence on them and who are also single. This procedure is analogously executed for the other three social media platforms as well as the "None" option, storing the derived information in a CSV file called "data.csv".
+            </p>
+            <p>
+                <br>Subsequently, the D3 HTML JavaScript code imports the "data.csv" file and renders the data as an interactive bubble chart. This enables users to dynamically select the variables to be displayed on either axis, as well as to determine whether the axis should be truncated, assuming the user has chosen a percentage-based variable, like the relationship status question discussed earlier. Furthermore, the interactive features allow users to hover over individual bubbles to identify the corresponding social media platform or hover over the legend boxes to specifically visualize the bubbles associated with a particular platform. This approach facilitates a nuanced understanding of the relationship between social media influence and various demographic factors.
+            </p>
+            <p>
+                <br>The visualization only uses the original data source, <a target="_blank" rel="noopener noreferrer" href="https://data.world/ahalps/social-influence-on-shopping">linked here.</a><br><br><br><br><br>
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <p>Daniel Van Cuylenburg (k19012373)</p>
+    </footer>
+
+    <script type="text/javascript">
+        function draw_chart() {
+            /**
+             * Some of this code has been taken and modified from
+             * https://d3-graph-gallery.com/graph/bubble_tooltip.html
+            */
+            // Removes any elements of the previous graph.
+            d3.select("svg").remove();
+            // Sets the dimensions and margins of the graph.
+            const margin = {top: 10, right: 50, bottom: 80, left: 90},
+                width = 500 - margin.left - margin.right,
+                height = 420 - margin.top - margin.bottom;
+            // Appends the svg object to the body of the page.
+            const svg = d3.select("#bubble_chart")
+            .append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+                .attr("transform", `translate(${margin.left},${margin.top})`);
+            // List of percentage variables whose axes can be truncated.
+            const percentage_list = [
+                "Percentage of Participants that are Male",
+                "Percentage of Participants that Attended School",
+                "Percentage of Participants that Play Games",
+                "Percentage of Participants that Voted in the 2016",
+                "Percentage of Participants that are Feminists",
+                "Percentage of Participants that are Single",
+                "Percentage of Participants that Received a Loan",
+                "Percentage of Participants that are Virgins",
+                "Percentage of Participants that are Straight",
+                "Percentage of Participants that are in a Fraternity",
+                "Percentage of Participants that Spoke English",
+                "Percentage of Participants that are Employed",
+                "Percentage of Participants with Career Paths",
+                "Percentage of Participants that own a PC",
+                "Percentage of Participants that are in a Club"
+            ];
+            // Adds x-axis.
+            // Checks if the current x-axis variable is a percentage variable, 
+            // and if x-axis truncation is activated. Selects the x-axis domain
+            // based on this.
+            let min_x_axis;
+            let max_x_axis;
+            if (percentage_list.includes(x_axis) & x_axis_truncated == false) {
+                min_x_axis = 0;
+                max_x_axis = 100
+            } else {
+                min_x_axis = columns.reduce((min, element) => {
+                    return Math.min(min, element[x_axis]);
+                }, Infinity) * 0.9;
+                max_x_axis = columns.reduce((max, element) => {
+                    return Math.max(max, element[x_axis]);
+                }, -Infinity) * 1.1;
+            }
+            const x = d3.scaleLinear()
+                .domain([min_x_axis, max_x_axis])
+                .range([ 0, width ]);
+            // Adds x-axis ticks.
+            svg.append("g")
+                .attr("transform", `translate(0, ${height})`)
+                .call(d3.axisBottom(x))
+                .selectAll("text")
+                .attr("transform", "rotate(90)")
+                .attr("text-anchor", "start")
+                .attr("x", 10)
+                .attr("y", -5);
+            // Adds x-axis label.
+            svg.append("text")
+                .attr("text-anchor", "middle")
+                .attr("x", width / 2)
+                .attr("y", height + margin.top + 20)
+                .attr("transform", "translate (0 35)")
+                .text(x_axis);
+            // Adds y-axis.
+            // Checks if the current y-axis variable is a percentage variable, 
+            // and if y-axis truncation is activated. Selects the y-axis domain
+            // based on this.
+            let min_y_axis;
+            let max_y_axis;
+            if (percentage_list.includes(y_axis) & y_axis_truncated == false) {
+                min_y_axis = 0;
+                max_y_axis = 100
+            } else {
+                min_y_axis = columns.reduce((min, element) => {
+                    return Math.min(min, element[y_axis]);
+                }, Infinity) * 0.9;
+                max_y_axis = columns.reduce((max, element) => {
+                    return Math.max(max, element[y_axis]);
+                }, -Infinity) * 1.1;
+            }
+            const y = d3.scaleLinear()
+                .domain([min_y_axis, max_y_axis])
+                .range([ height, 0]);
+            // Adds y-axis ticks.
+            svg.append("g")
+                .call(d3.axisLeft(y));
+            // Add y-axis label.
+            svg.append("text")
+                .attr("text-anchor", "middle")
+                .attr("transform", "rotate(-90)")
+                .attr("y", -margin.left + 30)
+                .attr("x", -(height / 2))
+                .text(y_axis);
+            // Adds a scale for bubble size.
+            const z = d3.scaleLinear()
+                .domain([0, 1000])
+                .range([ 4, 40]);
+            // Colors & patterns to be used for each bubble.
+            const colors = ["#56B4E9", "#E69F00", "#009E73", "#F0E442", "#0072B2"];
+            const patterns = [
+                {id: "pattern-stripe", path: "M-1,1 l2,-2 M0,4 l4,-4 M3,5 l2,-2"},
+                {id: "pattern-circle", path: "M 5,5 m -3, 0 a 3,3 0 1,0 6,0 a 3,3 0 1,0 -6,0"},
+                {id: "pattern-cross", path: "M0,0 l6,6 M0,6 l6,-6"}
+            ];
+            // Adds colors and patterns.
+            const defs = svg.append("defs");
+            patterns.forEach((pattern, patternIndex) => {
+                colors.forEach((color, colorIndex) => {
+                    const patternId = `${pattern.id}-${patternIndex}-${colorIndex}`;
+                    const patternElement = defs.append("pattern")
+                        .attr("id", patternId)
+                        .attr("patternUnits", "userSpaceOnUse")
+                        .attr("width", 10)
+                        .attr("height", 10);
+                    
+                    patternElement.append("rect")
+                        .attr("width", 10)
+                        .attr("height", 10)
+                        .attr("fill", color);
+                    
+                    patternElement.append("path")
+                        .attr("d", pattern.path)
+                        .attr("stroke", "red")
+                        .attr("stroke-width", 1);
+                });
+            });
+            // Adds a scale for bubble's colors and patterns.
+            const myColor = d3.scaleOrdinal()
+                .domain(["Facebook", "Instagram", "Snapchat", "Twitter", "None"])
+                .range([
+                    colors.map((color, index) => `url(#pattern-stripe-0-${index})`),
+                    colors.map((color, index) => `url(#pattern-circle-1-${index})`),
+                    colors.map((color, index) => `url(#pattern-cross-2-${index})`),
+                    colors.map((color, index) => `url(#pattern-stripe-0-${index})`),
+                    colors.map((color, index) => `url(#pattern-circle-1-${index})`)
+                ]);
+            /**
+             * Shows the tooltip when a bubble is highlighted. Occurs when user
+             * mouses over any bubble.
+            */
+            const showTooltip = function(event, d) {
+                tooltip
+                .transition()
+                .duration(200)
+                tooltip
+                .style("opacity", 1)
+                .html("Platform: " + d.Platform)
+                .style("left", (event.x)/2 + "px")
+                .style("top", (event.y)/2+30 + "px")
+            }
+            /**
+             * Moves the tooltip to the top of the screen if needed. Occurs any
+             * time the mouse moves.
+            */
+            const moveTooltip = function(event, d) {
+                tooltip
+                .style("left", (event.x)/2 + "px")
+                .style("top", (event.y)/2+30 + "px")
+            }
+            /**
+             * Hides the tooltip. Occurs when mouse moves out of a bubble.
+            */
+            const hideTooltip = function(event, d) {
+                tooltip
+                .transition()
+                .duration(200)
+                .style("opacity", 0)
+            }
+            // Adds x-axis gridlines.
+            svg.append("g")
+                .attr("class", "grid")
+                .attr("transform", "translate(0," + height + ")")
+                .call(make_x_gridlines(x)
+                    .tickSize(-height)
+                    .tickFormat("")
+                )
+                .attr("opacity", 0.3); // Adjust the opacity of the gridlines if needed
+            // Adds y-axis gridlines.
+            svg.append("g")
+                .attr("class", "grid")
+                .call(make_y_gridlines(y)
+                    .tickSize(-width)
+                    .tickFormat("")
+                )
+                .attr("opacity", 0.3);
+            // Adds bubbles.
+            svg.append('g')
+                .selectAll("dot")
+                .data(columns)
+                .join("circle")
+                .attr("class", "bubbles")
+                .attr("cx", d => x(d[x_axis]))
+                .attr("cy", d => y(d[y_axis]))
+                .attr("r", d => z(d["Number of Participants"]))
+                .style("fill", function(d) {
+                    const platformIndex = myColor.domain().indexOf(d.Platform);
+                    return myColor(d.Platform)[platformIndex];
+                })
+                .style("fill-opacity", 0.6)
+                .style("stroke", "black")
+                .on("mouseover", showTooltip )
+                .on("mousemove", moveTooltip )
+                .on("mouseleave", hideTooltip );
+            // Adds legend.
+            const legend = svg.append("g")
+                .attr("class", "legend")
+                .attr("transform", `translate(${width - margin.right}, ${margin.top})`);
+            const legend_boxes = legend.selectAll("rect")
+                .data(myColor.domain())
+                .join("rect")
+                .attr("width", 20)
+                .attr("height", 20)
+                .attr("fill", function(d) {
+                    const platformIndex = myColor.domain().indexOf(d);
+                    return myColor(d)[platformIndex];
+                })
+                .attr("x", 0)
+                .attr("y", (d, i) => i * 25);
+            const legend_text = legend.selectAll("text")
+                .data(myColor.domain())
+                .join("text")
+                .attr("x", 25)
+                .attr("y", (d, i) => i * 25 + 15)
+                .text(d => d);
+            // Adds event listeners to legend.
+            legend_boxes
+                .on("mouseover", (event, d) => highlight(event, d))
+                .on("mouseleave", (event, d) => unhighlight(event, d));
+            /**
+             * Highlights a given bubble when its legend is being moused over.
+            */
+            const highlight = function (event, platform) {
+                d3.selectAll(".bubbles")
+                    .transition()
+                    .duration(200)
+                    .style("fill-opacity", d => d.Platform === platform ? 0.8 : 0.1)
+                    .style("stroke-width", d => d.Platform === platform ? 2 : 0);
+            };
+            /**
+             * Unhighlights a given bubble when its the user moves their mouse
+             * out of that bubble's legend box.
+            */
+            const unhighlight = function (event, platform) {
+                d3.selectAll(".bubbles")
+                    .transition()
+                    .duration(200)
+                    .style("fill-opacity", 0.5)
+                    .style("stroke-width", 0);
+        }};   
+        // When a user selects a new x-axis variable, updates the chart.
+        d3.select('#x_axis_select').on('change', function() {
+            x_axis = document.getElementById("x_axis_select").value;
+            draw_chart();
+        });
+        // When a user selects a new y-axis variable, updates the chart.
+        d3.select('#y_axis_select').on('change', function() {
+            y_axis = document.getElementById("y_axis_select").value;
+            draw_chart();
+        });
+        /**
+         * Imports data from the CSV file, then draws the chart only after 
+         * importing the data.
+        */
+        function import_data(callback) {
+            x_axis = document.getElementById("x_axis_select").value;
+            y_axis = document.getElementById("y_axis_select").value;
+            columns = [];
+            d3.csv("data.csv", function(data) {
+                columns.push(data);
+            }).then(function() {
+                if (callback) {
+                    callback();
+                }
+            });
+        }
+        /**
+         * When the user clicks the x-axis truncation checkbox,
+         * updates the chart.
+        */
+        function x_truncation() {
+            if (x_axis_truncated == false) {
+                x_axis_truncated = true;
+            } else {
+                x_axis_truncated = false;
+            };
+            draw_chart();
+        }
+        /**
+         * When the user clicks the y-axis truncation checkbox,
+         * updates the chart.
+        */
+        function y_truncation() {
+            if (y_axis_truncated == false) {
+                y_axis_truncated = true;
+            } else {
+                y_axis_truncated = false;
+            };
+            draw_chart();
+        }
+        /**
+         * Creates the x-axis gridlines.
+        */
+        function make_x_gridlines(x) {
+            return d3.axisBottom(x)
+                .ticks(10);
+        }
+        /**
+         * Creates the y-axis gridlines.
+        */
+        function make_y_gridlines(y) {
+            return d3.axisLeft(y)
+                .ticks(10);
+        }
+        // Creates a tooltip div to be displayed whenever the user mouses over
+        // any of the bubbles.
+        const tooltip = d3.select("#bubble_chart")
+            .append("div")
+            .style("opacity", 0)
+            .attr("class", "tooltip")
+            .style("background-color", "black")
+            .style("border-radius", "5px")
+            .style("padding", "10px")
+            .style("color", "white")
+
+        var x_axis_truncated;
+        var y_axis_truncated;
+        import_data(draw_chart);
+        x_truncation();
+        y_truncation();
+    </script>
+</body>
+</html>
